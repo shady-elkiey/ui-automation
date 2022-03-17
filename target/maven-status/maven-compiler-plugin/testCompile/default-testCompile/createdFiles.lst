@@ -1,0 +1,3 @@
+com\dell\LoginTest\BaseTest.class
+com\dell\LoginTest\LoginTests.class
+com\dell\ApiTest\CategoryTests.class
