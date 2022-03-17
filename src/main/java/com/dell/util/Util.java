@@ -24,8 +24,6 @@ public class Util {
     }
 
     public static JsonObject getJsonObject(String path) throws FileNotFoundException {
-        JsonParser jsonparse = new JsonParser();
-        JsonObject jsonObject = (JsonObject) jsonparse.parse(new FileReader(path));
-        return jsonObject;
+        return JsonParser.parseReader(new FileReader(path)).getAsJsonObject();
     }
 }
