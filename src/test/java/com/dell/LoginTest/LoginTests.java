@@ -101,7 +101,7 @@ public class LoginTests extends BaseTest {
      */
     @Test
     public void loginWithoutPassword() {
-        loginPage.loginWithoutPassword(userInfo.get("password").getAsString());
+        loginPage.loginWithoutPassword(userInfo.get("userName1").getAsString());
         String expectedErrorMsg = "Epic sadface: Password is required";
         String actualErrorMsg = loginPage.errorMsg.getText();
         Assert.assertEquals(actualErrorMsg, expectedErrorMsg);

@@ -30,7 +30,7 @@ public class CategoryTests {
         RestAssured.baseURI = apiInfo.get("baseUrl").getAsString();
     }
     /**
-     * A test case to validate the json schema
+     * A test case to validate the json schema response
      */
     @Test(priority = 1)
     public void validateResponseSchemaFromGetCategoriesAPI() {
@@ -54,6 +54,7 @@ public class CategoryTests {
                     body("limit", equalTo(10)).
                     body("skip", equalTo(0)).
                     body("data.size()", is(10)).
+                    body("data[0].subCategories.size()", is(8)).
                     body("data[0].id", notNullValue()).
                     body("data[0].name", notNullValue());
     }
@@ -70,6 +71,7 @@ public class CategoryTests {
                     body("limit", equalTo(apiInfo.get("limit").getAsInt())).
                     body("skip", equalTo(0)).
                     body("data.size()", is(apiInfo.get("limit").getAsInt())).
+                    body("data[0].subCategories.size()", is(8)).
                     body("data[0].id", notNullValue()).
                     body("data[0].name", notNullValue());
     }
@@ -86,6 +88,7 @@ public class CategoryTests {
                     body("limit", equalTo(10)).
                     body("skip", equalTo(apiInfo.get("skip").getAsInt())).
                     body("data.size()", is(10)).
+                    body("data[0].subCategories.size()", is(0)).
                     body("data[0].id", notNullValue()).
                     body("data[0].name", notNullValue());
     }
@@ -102,6 +105,7 @@ public class CategoryTests {
                     body("limit", equalTo(apiInfo.get("limit").getAsInt())).
                     body("skip", equalTo(apiInfo.get("skip").getAsInt())).
                     body("data.size()", is(apiInfo.get("limit").getAsInt())).
+                    body("data[0].subCategories.size()", is(0)).
                     body("data[0].id", notNullValue()).
                     body("data[0].name", notNullValue());
     }
@@ -198,7 +202,7 @@ public class CategoryTests {
                     .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
     /**
-     * A test case to test the post request without a request body
+     * A test case to test the post request with an empty request body
      */
     @Test(priority = 13)
     public void testCreateCategoryAPIWithoutRequestBody() {
@@ -325,7 +329,8 @@ public class CategoryTests {
                 .when()
                     .get(apiInfo.get("id").getAsString())
                 .then()
-                    .statusCode(HttpStatus.SC_OK).body("name", (equalTo(apiInfo.get("updatedNameInCategory").getAsString())));
+                    .statusCode(HttpStatus.SC_OK)
+                    .body("name", (equalTo(apiInfo.get("updatedNameInCategory").getAsString())));
     }
     /**
      * A test case to test the get request with an invalid id
